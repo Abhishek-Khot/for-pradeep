@@ -1,97 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cards Example</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-        }
-        
-        .card-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            height: 100vh;
-            margin-top: 50px;
-        }
-        
-        .card {
-            width: 250px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .card:hover {
-            transform: translateY(-10px);
-        }
-        
-        h3 {
-            margin: 0;
-            font-size: 24px;
-            color: #333;
-        }
-        
-        p {
-            font-size: 16px;
-            color: #555;
-        }
-        
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007BFF;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        button:hover {
-            background-color: #0056b3;
-        }
-        
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PG Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f9f9f9;
+      margin: 0;
+    }
+
+    .form-container {
+      width: 100%;
+      max-width: 500px;
+      background: #fff;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-row {
+      margin-bottom: 10px;
+    }
+
+    input[type="text"], input[type="number"], input[type="password"], textarea, input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .pg-button {
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .pg-button:hover {
+      background-color: #0056b3;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
-    <div class="card-container">
-        <div class="card">
-            <img src="https://via.placeholder.com/250x150?text=PG" alt="PG Image" class="card-image">
-            <h3>PG</h3>
-            <p>Find the best PGs near you.</p>
-            <button onclick="window.location.href='pg.html'">Visit PG</button>
-        </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/250x150?text=Mess" alt="Mess Image" class="card-image">
-            <h3>Mess</h3>
-            <p>Explore mess options and food quality.</p>
-            <button onclick="window.location.href='mess.html'">Visit Mess</button>
-        </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/250x150?text=Stationary" alt="Stationary Image" class="card-image">
-            <h3>Stationary</h3>
-            <p>Get all your stationary needs.</p>
-            <button onclick="window.location.href='stationary.html'">Visit Stationary</button>
-        </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/250x150?text=Hospital" alt="Hospital Image" class="card-image">
-            <h3>Hospital</h3>
-            <p>Find nearby hospitals for emergency needs.</p>
-            <button onclick="window.location.href='hospital.html'">Visit Hospital</button>
-        </div>
-    </div>
-    </div>
+
+  <div class="form-container">
+    <form action="http://localhost:8080/home/jcer/rooms" method="POST" id="pgForm" enctype="multipart/form-data">
+      <div class="input-row">
+        <label for="name">PG Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter PG name" required>
+      </div>
+      <div class="input-row">
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" placeholder="Enter address" required>
+      </div>
+      <div class="input-row">
+        <label for="cost">Cost</label>
+        <input type="number" id="cost" name="cost" placeholder="Enter cost" required>
+      </div>
+      <div class="input-row">
+        <label for="facilities">Facilities</label>
+        <textarea id="facilities" name="facilities" placeholder="Enter facilities" required></textarea>
+      </div>
+      <div class="input-row">
+        <label for="dist">Distance</label>
+        <input type="number" id="dist" name="dist" placeholder="Enter distance" required>
+      </div>
+      <div class="input-row">
+        <label for="image">Image</label>
+        <input type="file" id="image" name="image" required>
+      </div>
+      <div class="input-row">
+        <label for="password">Secret Key</label>
+        <input type="password" id="password" name="password" placeholder="Enter secret key" required>
+      </div>
+      <button type="submit" class="pg-button">Add PG</button>
+      <div class="error-message" id="errorMessage"></div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('pgForm');
+    const secretKey = "12345"; // Replace with your actual secret key
+
+    form.addEventListener('submit', function(e) {
+      const passwordField = document.getElementById('password');
+      const errorMessage = document.getElementById('errorMessage');
+
+      // Validate secret key
+      if (passwordField.value !== secretKey) {
+        e.preventDefault();
+        errorMessage.textContent = "Invalid secret key. Please try again.";
+      }
+    });
+  </script>
 </body>
 </html>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
